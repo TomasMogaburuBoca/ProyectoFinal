@@ -1,0 +1,28 @@
+[
+{"id": 1,
+"timestamp": 23.0
+products:
+    [
+        {"id": 1, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 1,
+        "thumbnail": "", "price": 2000, "stock": 5},
+        {    "id": 2, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 1,
+        "thumbnail": "", "price": 2000, "stock": 5},
+        {    "id": 3, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 1,
+        "thumbnail": "", "price": 2000, "stock": 5},
+        {    "id": 4, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 1,
+        "thumbnail": "", "price": 2000, "stock": 5},
+    ],
+{"id": 2,
+"timestamp": 23.0
+products:
+    {
+        "id": 1, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 1,
+        "thumbnail": "", "price": 2000, "stock": 5},
+            "id": 2, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 1,
+        "thumbnail": "", "price": 2000, "stock": 5},
+            "id": 3, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 1,
+        "thumbnail": "", "price": 2000, "stock": 5},
+            "id": 4, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 1,
+        "thumbnail": "", "price": 2000, "stock": 5},
+    }
+]
