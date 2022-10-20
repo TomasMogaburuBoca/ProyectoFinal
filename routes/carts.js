@@ -21,7 +21,10 @@ routerCarts.get ('/:id/products', async (req, res) =>{
     res.send([...showCarts]);
 })
 
-routerCarts.post('/:id/products', (req, res) =>{
+routerCarts.post('/:id/products', async(req, res) =>{
+    let addProduct = req.query.id
+    let products = await carts.products.getAll()
+    products.push(addProduct);
     console.log('ok');
 })
 

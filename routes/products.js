@@ -2,6 +2,7 @@ const express = require ('express');
 const { Router } = express;
 const routerProducts = Router();
 const Container = require ('../Container/index');
+const { authMiddleware } = require ('../middlewares');
 
 const products = new Container('products.txt');
 console.log(products);
@@ -20,18 +21,22 @@ routerProducts.get('/:id?', async (req, res, id) =>{
     res.send (productId)
 })
 
-routerProducts.post('/', (req, res) =>{
-    let products = products.getAll();
-    let addProducts = products
+routerProducts.post('/', authMiddleware, async (req, res) =>{
+    let products =  await products.getAll();
+    let addProduct = req.body
+    products.push(addProduct);
+    res.send ([...products]);
 });
 
-routerProducts.put('/:id', (req, res) =>{
+routerProducts.put('/:id', authMiddleware,(req, res) =>{
     console.log('Acutaliza prods por su ID');
 })
 
-routerProducts.delete('/:id', (req, res) =>{
+routerProducts.delete('/:id',authMiddleware, (req, res) =>{
     let deleteProductById = products.deleteById();
-    res.send (deleteProductById)
+    console.log(deleteProductById);
+    products.push(deleteProductById);
+    res.send(products)
     console.log('PARA BORRAR');
 })
 

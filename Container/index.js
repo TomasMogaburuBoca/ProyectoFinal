@@ -32,15 +32,25 @@ class Container{
     async deleteById(id){
         let contObject = await this.getAll();
         console.log(id);
-        let eliminated = contObject.find (obj => obj.id != id)
+        let eliminated = contObject.find (obj => obj.id !== id)
         console.log(eliminated);
         await fs.promises.writeFile(this.file, JSON.stringify(eliminated))
+        res.send(eliminated)
     }
 
     async deleteByIdCart(id){
         let contObject = await this.getAll();
         let eliminatedById = contObject.find (obj => obj.id != id);
         await fs.promises.writeFile(this.file, JSON.stringify(eliminatedById))
+    }
+
+    async deleteAll(){
+        await fs.promises.writeFile(this.file, '[]')
+    }
+
+    async getLength(){
+    let list = await this.getAll();
+    return await list.length;
     }
 };
 
