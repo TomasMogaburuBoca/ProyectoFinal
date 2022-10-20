@@ -9,23 +9,24 @@ console.log(products);
 
 
 
-routerProducts.get('/:id?', async (req, res, id) =>{
+routerProducts.get('/:id?', async (req, res) =>{
     let showProducts =  await products.getAll();
-    let productId = await products.getById(id);
+    let findForId = req.params.id
     console.log('New connection');
     console.log([...showProducts]);
-    console.log(productId);
-    if(productId){
-        return products.id
+    if(findForId){
+        return showProducts
     }else res.send([...showProducts]);
-    res.send (productId)
+    res.send (showProducts)
 })
 
 routerProducts.post('/', authMiddleware, async (req, res) =>{
-    let products =  await products.getAll();
+    let product =  await products.getAll();
+    console.log(product);
     let addProduct = req.body
-    products.push(addProduct);
-    res.send ([...products]);
+    let newProduct = product.push(addProduct);
+    console.log(newProduct);
+    res.json (newProduct);
 });
 
 routerProducts.put('/:id', authMiddleware,(req, res) =>{
