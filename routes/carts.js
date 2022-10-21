@@ -7,12 +7,20 @@ const carts = new Container('carts.txt');
 console.log(carts);
 
 
-routerCarts.post ('/', (req, res) =>{
-    res.send(console.log('crea un carrito y devuelve su id'));
+routerCarts.post ('/', async (req, res) =>{
+    let showCarts = req.body
+    let arrayCarts = carts.push(showCarts);
+    console.log(arrayCarts);
+    //let showProducts =  await carts.getAll();
+    res.send(([arrayCarts]));
 })
 
 routerCarts.delete('/:id', (req, res) =>{
-    console.log('vacia carrito y lo elimina');
+    let deleteCartById = req.params.id
+    if(deleteCartById != id){
+        res.send(carts = []);
+    }else
+    console.log("Can't delete");
 });
 
 routerCarts.get ('/:id/products', async (req, res) =>{

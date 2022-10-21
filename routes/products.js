@@ -13,6 +13,7 @@ routerProducts.get('/:id?', async (req, res) =>{
     let showProducts =  await products.getAll();
     let findForId = req.params.id
     console.log('New connection');
+    console.log(findForId);
     console.log([...showProducts]);
     if(findForId){
         return showProducts
@@ -24,9 +25,10 @@ routerProducts.post('/', authMiddleware, async (req, res) =>{
     let product =  await products.getAll();
     console.log(product);
     let addProduct = req.body
-    let newProduct = product.push(addProduct);
-    console.log(newProduct);
-    res.json (newProduct);
+    //let newProduct = 
+    res.json(product.push(addProduct));
+    //console.log(newProduct);
+    //res.json (newProduct);
 });
 
 routerProducts.put('/:id', authMiddleware,(req, res) =>{
