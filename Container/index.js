@@ -8,11 +8,11 @@ class Container{
     async save (product){
         let content = await fs.promises.readFile(this.file);
         let contObject = JSON.parse(content);
-        //let newId;
-        //    if(contObject.length > 0){
-        //        newId = contObject.length +1}
-        //    else {newId = 1};
-        //product.id = newId;
+        let newId;
+            if(contObject.length > 0){
+                newId = contObject.length +1}
+            else {newId = 1};
+        product.id = newId;
         contObject.push(product)
     }
 

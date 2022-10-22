@@ -2,45 +2,47 @@ const express = require ('express');
 const { Router } = express;
 const routerProducts = Router();
 const Container = require ('../Container/index');
+const ApiClass = require ('../Container/apiClass')
 const { authMiddleware } = require ('../middlewares');
+
 
 const products = new Container('products.txt');
 console.log(products);
+const apiProducts = new ApiClass('products.txt');
+console.log(apiProducts);
 
 
 
-routerProducts.get('/:id?', async (req, res) =>{
-    let showProducts =  await products.getAll();
-    let findForId = req.params.id
-    console.log('New connection');
-    console.log(findForId);
-    console.log([...showProducts]);
-    if(findForId){
-        return showProducts
-    }else res.send([...showProducts]);
-    res.send (showProducts)
-})
 
-routerProducts.post('/', authMiddleware, async (req, res) =>{
-    let product =  await products.getAll();
-    console.log(product);
-    let addProduct = req.body
-    //let newProduct = 
-    res.json(product.push(addProduct));
-    //console.log(newProduct);
-    //res.json (newProduct);
+
+routerProducts.get('/', async function (req, res) {
+    getProducts = await products.getAll()
+    console.log(getProducts);
+    res.send(getProducts);
 });
 
-routerProducts.put('/:id', authMiddleware,(req, res) =>{
-    console.log('Acutaliza prods por su ID');
-})
+routerProducts.post('/', authMiddleware, async function (req, res){
+    await products.save(products);
+    apiProducts.add(req, res);
+});
 
-routerProducts.delete('/:id',authMiddleware, (req, res) =>{
-    let deleteProductById = products.deleteById();
-    console.log(deleteProductById);
-    products.push(deleteProductById);
-    res.send(products)
-    console.log('PARA BORRAR');
-})
+//routerProducts.put('/:id', authMiddleware,(req, res) =>{
+//    console.log('Acutaliza prods por su ID');
+    routerProducts.put('/:id', async function (req, res) {
+        await apiProducts.modify(req, res);
+    });
+//})
+
+routerProducts["delete"]('/:id', function (req, res) {
+    apiProducts["delete"](req, res);
+});
+
+//routerProducts.delete('/:id',authMiddleware, (req, res) =>{
+//    let deleteProductById = products.deleteById();
+//    console.log(deleteProductById);
+//    products.push(deleteProductById);
+//    res.send(products)
+//    console.log('PARA BORRAR');
+//})
 
 module.exports = routerProducts;
