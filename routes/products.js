@@ -2,47 +2,61 @@ const express = require ('express');
 const { Router } = express;
 const routerProducts = Router();
 const Container = require ('../Container/index');
-const ApiClass = require ('../Container/apiClass')
 const { authMiddleware } = require ('../middlewares');
+const admin = true;
 
 
 const products = new Container('products.txt');
 console.log(products);
-const apiProducts = new ApiClass('products.txt');
-console.log(apiProducts);
 
-
-
-
-
-routerProducts.get('/', async function (req, res) {
-    getProducts = await products.getAll()
-    console.log(getProducts);
-    res.send(getProducts);
-});
-
-routerProducts.post('/', authMiddleware, async function (req, res){
-    await products.save(products);
-    apiProducts.add(req, res);
-});
-
-//routerProducts.put('/:id', authMiddleware,(req, res) =>{
-//    console.log('Acutaliza prods por su ID');
-    routerProducts.put('/:id', async function (req, res) {
-        await apiProducts.modify(req, res);
+routerProducts.get ('/', async(req, res) =>{
+    const prods = products.getAll();
+    const result = await prods;
+    res.json(result);
+    res.render("/api/products",{
+        products: result,
     });
-//})
-
-routerProducts["delete"]('/:id', function (req, res) {
-    apiProducts["delete"](req, res);
 });
 
-//routerProducts.delete('/:id',authMiddleware, (req, res) =>{
-//    let deleteProductById = products.deleteById();
-//    console.log(deleteProductById);
-//    products.push(deleteProductById);
-//    res.send(products)
-//    console.log('PARA BORRAR');
-//})
+routerProducts.get('/:id', async (req,res)=>{
+    const id = req.params.id;
+    const filter = products.getById(id);
+    const result = await filter;
+    if (!result){
+        res.json({message: 'Product not found by ID'})
+    }else {res.json(result)}
+});
+
+routerProducts.post('/', async (req, res) =>{
+    if (admin){
+        const item = req.body;
+        const itemAdded = products.save(item);
+        const result = await itemAdded;
+        const getAll = await products.getAll();
+        res.send(result);
+        res.render('api/products',{
+            products: getAll()
+        });
+    }else {res.send('Route not found')}
+})
+
+routerProducts.put('/:id', async (req, res) =>{
+    if (admin) {
+        const id = req.params.id;
+        const item = req.body;
+        const prod = await products.update(item, id);
+        res.json(prod)
+    }else {res.send('Route not available')}
+});
+
+routerProducts.delete(':id', async (req, res) =>{
+    if(admin){
+        const id = req.params.id;
+        const newArray = await products.deleteById(id);
+        res.send(newArray);
+    }else {res.send('Route not available')}
+})
+
+
 
 module.exports = routerProducts;
