@@ -1,10 +1,33 @@
 [
-        {"id": 1, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 1,
-        "thumbnail": "", "price": 2000, "stock": 5},
-        {    "id": 2, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 2,
-        "thumbnail": "", "price": 2000, "stock": 5},
-        {    "id": 3, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 3,
-        "thumbnail": "", "price": 2000, "stock": 5},
-        {    "id": 4, "timestamp": 24, "name": "Longboard", "description": "8.0", "code": 4 ,
-        "thumbnail": "", "price": 2000, "stock": 5}
+  {
+    "name": "Longboard",
+    "description": 9.0,
+    "price": 2,105,
+    "url": "",
+    "stock": 80,
+    "code": "C-A400",
+    "id": 1,
+    "timestamp": 1649395351742
+  },
+  {
+    "name": "Longboard",
+    "description": 8.0,
+    "price": 1,005,
+    "url": "",
+    "stock": 80,
+    "code": "C-A500",
+    "id": 2,
+    "timestamp": 1649395351742
+  },
+  {
+    "name": "Longboard",
+    "description": 8.0,
+    "price": 1,205,
+    "url": "",
+    "stock": 50,
+    "code": "C-A600",
+    "id": 3,
+    "timestamp": 1649395351742
+  }
+
 ]

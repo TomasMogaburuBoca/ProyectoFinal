@@ -1,21 +1,27 @@
 const express = require ('express');
+const { urlencoded } = require ('express');
+const router = require ('./routes/index')
 const app = express();
-const fs = require ('fs');
-const routerProducts = require ('./routes/products')
-const routerCarts = require ('./routes/carts')
-const Container = require('./Container/index');
 
-app.use ('/api/carts', routerCarts);
-app.use ('/api/products', routerProducts)
+app.use (express.json());
+app.use (urlencoded ({extended: true}));
 
-routerProducts.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-routerCarts.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-const PORT = process.env.port || 8080;
+app.set('port', process.env.PORT || 8080);
 
-const server = app.listen(PORT, () =>{
-    console.log(`Server listening in PORT ${PORT}`);
-})
-server.on('error', error => console.log(error));
+app.use('/api', router);
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    res.status(404).send({
+        status: 404,
+        messages: 'Page not found',
+    });
+});
+
+app.listen(app.get('port'), () => {
+    console.log(
+        `Server listening on port ${app.get(
+        'port'
+        )}`
+    );
+});
